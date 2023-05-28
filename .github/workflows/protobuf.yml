@@ -83,10 +83,6 @@ jobs:
   push-code:
     runs-on: ubuntu-latest
     needs: example_matrix
-    strategy:
-      matrix:
-        modules: ${{ fromJSON(needs.get-versions.outputs.test) }}
-        language: [java, go]
     uses: ./.github/workflows/java.yml
 
 
