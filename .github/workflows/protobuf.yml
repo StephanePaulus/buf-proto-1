@@ -77,7 +77,7 @@ jobs:
       - name: Archive generated code
         uses: actions/upload-artifact@v3
         with:
-          name: generated-code-${{ matrix.modules.version }}
+          name: generated-code-${{ matrix.modules.module }}
           path: gen/
 
 
