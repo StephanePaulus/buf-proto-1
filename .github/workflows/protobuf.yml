@@ -60,19 +60,19 @@ jobs:
           echo "${{ toJSON(steps.versions.outputs.CHANGED_MODULES) }}"
           echo "${{ toJSON(steps.versions.outputs.WEATHER_PROTO_VERSION) }}"
     outputs:
-      CHANGED_MODULES: ${{ toJSON(steps.versions.outputs.CHANGED_MODULES) }}
+      CHANGED_MODULES: ${{ steps.versions.outputs.CHANGED_MODULES }}
       WEATHER_PROTO_VERSION: ${{ toJSON(steps.versions.outputs.WEATHER_PROTO_VERSION) }}
 
-#  example_matrix:
-#    runs-on: ubuntu-latest
-#    needs: get-versions
-#    strategy:
-#      matrix:
-#        version: '["weather"]'
-#    steps:
-#      - name:
-#        run: |
-#          echo ${{ matrix.version }}
+  example_matrix:
+    runs-on: ubuntu-latest
+    needs: get-versions
+    strategy:
+      matrix:
+        version: ${{ needs.get-versions.outputs.CHANGED_MODULES }}
+    steps:
+      - name:
+        run: |
+          echo ${{ matrix.version }}
 
 
 
