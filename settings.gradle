@@ -1,2 +1,3 @@
 rootProject.name = "buf-proto-1"
 include 'weather'
+include 'rain'
