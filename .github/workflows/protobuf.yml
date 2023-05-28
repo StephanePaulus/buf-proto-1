@@ -58,13 +58,10 @@ jobs:
   example_matrix:
     runs-on: ubuntu-latest
     needs: get-versions
-    strategy:
-      matrix:
-        version: ${{ fromJSON(needs.get-versions.outputs.CHANGED_MODULES) }}
     steps:
       - name:
         run: |
-          echo "${{ matrix.version }}"
+          echo "${{ fromJSON(needs.get-versions.outputs.CHANGED_MODULES) }}"
 
 
 
