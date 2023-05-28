@@ -55,6 +55,8 @@ jobs:
       - name: Use the value
         id: step_two
         run: |
+          echo "${{ steps.versions.outputs.CHANGED_MODULES }}"
+          echo "${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
           echo "${{ toJSON(steps.versions.outputs.CHANGED_MODULES) }}"
           echo "${{ toJSON(steps.versions.outputs.WEATHER_PROTO_VERSION) }}"
     outputs:
