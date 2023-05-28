@@ -58,14 +58,14 @@ jobs:
           echo "${{ steps.versions.outputs.modules }}"
           echo "${{ toJSON(steps.versions.outputs.modules) }}"
     outputs:
-      test: ${{ steps.versions.outputs.modules }}
+      test: ${{ toJSON(steps.versions.outputs.modules) }}
 
   example_matrix:
     runs-on: ubuntu-latest
     needs: get-versions
     strategy:
       matrix:
-        modules: [ {module: weather, version: 0.1.0-SNAPSHOT} ]
+        modules: ${{ fromJSON(needs.get-versions.outputs.test) }}
     steps:
       - name: print
         run: |
