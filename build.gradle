@@ -28,7 +28,7 @@ tasks.register('printVersions') {
     def changedModules = []
     for (Project p : rootProject.subprojects) {
         if (p.version.contains('SNAPSHOT')) {
-            changedModules.add("{module: "+p.name+", version: "+p.version+"}")
+            changedModules.add("{\"module\": "+p.name+", \"version\": "+p.version+"}")
         }
         println "[ "+changedModules.join(", ")+" ]"
     }
