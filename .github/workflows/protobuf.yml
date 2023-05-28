@@ -83,7 +83,7 @@ jobs:
   push-code-java:
     needs: example_matrix
     with:
-      modules: ${{ fromJSON(needs.get-versions.outputs.test) }}
+      modules: ${{ needs.get-versions.outputs.test }}
     uses: ./.github/workflows/java.yml
 
   push-code-go:
