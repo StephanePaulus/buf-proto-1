@@ -79,6 +79,8 @@ jobs:
         with:
           name: generated-code-${{ matrix.modules.module }}
           path: gen/
+      - name: trigger
+        uses: ./.github/workflows/java.yml
 
 
 
