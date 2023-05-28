@@ -32,9 +32,7 @@ jobs:
           buf lint
 
   get-versions:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -81,13 +79,13 @@ jobs:
           path: gen/
 
   push-code-java:
-    needs: [get-version,example_matrix]
+    needs: [get-versions,example_matrix]
     with:
       modules: ${{ needs.get-versions.outputs.test }}
     uses: ./.github/workflows/java.yml
 
   push-code-go:
-    needs: [get-version,example_matrix]
+    needs: [get-versions,example_matrix]
     with:
       modules: ${{ needs.get-versions.outputs.test }}
     uses: ./.github/workflows/go.yml
