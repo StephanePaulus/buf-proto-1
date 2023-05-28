@@ -15,16 +15,21 @@ jobs:
       matrix:
         modules: ${{ fromJSON(inputs.modules) }}
     steps:
-      # Run `git checkout`
-      - uses: actions/checkout@v3
-      # Install the `buf` CLI
-      - uses: bufbuild/buf-setup-action@v1.19.0
-      # Ensure that `buf` is installed
-      - run: |
-          buf generate ${{ matrix.modules.module }}/proto
-          echo ${{ matrix.modules.version }}
-      - name: Archive generated code
-        uses: actions/upload-artifact@v3
-        with:
-          name: generated-code-${{ matrix.modules.module }}
-          path: gen/
+    - uses: actions/checkout@v3
+
+    - uses: actions/download-artifact@v3
+      with:
+        name: generated-code-${{ matrix.modules.module }}
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

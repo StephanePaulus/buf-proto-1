@@ -82,12 +82,14 @@ jobs:
     needs: [get-versions,example_matrix]
     with:
       modules: ${{ needs.get-versions.outputs.test }}
+    secrets: inherit
     uses: ./.github/workflows/java.yml
 
   push-code-go:
     needs: [get-versions,example_matrix]
     with:
       modules: ${{ needs.get-versions.outputs.test }}
+    secrets: inherit
     uses: ./.github/workflows/go.yml
 
 
