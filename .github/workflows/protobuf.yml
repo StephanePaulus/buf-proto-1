@@ -50,7 +50,7 @@ jobs:
 
       - name: Execute Gradle build
         id: versions
-        run: ./gradlew printVersions
+        run: echo $(./gradlew printVersions)
 #      - name: Get versions
 #        run: |
 #          echo "The version is ${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
