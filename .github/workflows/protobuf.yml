@@ -55,8 +55,8 @@ jobs:
       - name: Use the value
         id: step_two
         run: |
-          echo "${{ steps.versions.outputs.modules }}"
-          echo "${{ toJSON(steps.versions.outputs.modules) }}"
+          echo ${{ steps.versions.outputs.modules }}
+          echo ${{ toJSON(steps.versions.outputs.modules) }}
     outputs:
       test: ${{ toJSON(steps.versions.outputs.modules) }}
 
