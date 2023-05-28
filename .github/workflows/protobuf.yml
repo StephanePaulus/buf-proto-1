@@ -51,10 +51,11 @@ jobs:
       - name: Execute Gradle build
         id: versions
         run: echo $(./gradlew printVersions -q) >> "$GITHUB_ENV"
-#      - name: Get versions
-#        run: |
-#          echo "The version is ${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
-#          echo "The selected color is ${{ steps.versions.outputs.CHANGED_MODULES }}"
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.WEATHER_PROTO_VERSION }}"
+          echo "${{ env.CHANGED_MODULES }}"
 
 
 
