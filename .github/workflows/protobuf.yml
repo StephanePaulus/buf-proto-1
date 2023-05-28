@@ -50,12 +50,12 @@ jobs:
 
       - name: Execute Gradle build
         id: versions
-        run: echo -e "$(./gradlew printVersions -q)" >> "$GITHUB_OUTPUT"
+        run: echo -e "$(./gradlew printVersions -q)" >> "$GITHUB_ENV"
       - name: Use the value
         id: step_two
         run: |
-          echo "${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
-          echo "${{ steps.versions.outputs.CHANGED_MODULES }}"
+          echo "${{ env.WEATHER_PROTO_VERSION }}"
+          echo "${{ env.CHANGED_MODULES }}"
 
 
 
