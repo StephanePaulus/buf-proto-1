@@ -50,11 +50,11 @@ jobs:
 
       - name: Execute Gradle build
         id: versions
-        run: echo "$(./gradlew printVersions)"  >> $GITHUB_OUTPUT
-      - name: Get versions
-        run: |
-          echo "The version is ${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
-          echo "The selected color is ${{ steps.versions.outputs.CHANGED_MODULES }}"
+        run: ./gradlew printVersions
+#      - name: Get versions
+#        run: |
+#          echo "The version is ${{ steps.versions.outputs.WEATHER_PROTO_VERSION }}"
+#          echo "The selected color is ${{ steps.versions.outputs.CHANGED_MODULES }}"
 
 
 
