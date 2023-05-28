@@ -58,7 +58,7 @@ jobs:
           echo ${{ steps.versions.outputs.modules }}
           echo ${{ toJSON(steps.versions.outputs.modules) }}
     outputs:
-      test: ${{ steps.versions.outputs.modules }}
+      test: ${{ toJSON(steps.versions.outputs.modules) }}
 
   example_matrix:
     runs-on: ubuntu-latest
