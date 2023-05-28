@@ -11,7 +11,20 @@ on:
 jobs:
   build-java:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        modules: ${{ fromJSON(inputs.modules) }}
     steps:
-      - name: test
-        run: |
-          echo ${{ inputs.modules }}
+      # Run `git checkout`
+      - uses: actions/checkout@v3
+      # Install the `buf` CLI
+      - uses: bufbuild/buf-setup-action@v1.19.0
+      # Ensure that `buf` is installed
+      - run: |
+          buf generate ${{ matrix.modules.module }}/proto
+          echo ${{ matrix.modules.version }}
+      - name: Archive generated code
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-code-${{ matrix.modules.module }}
+          path: gen/
