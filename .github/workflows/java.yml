@@ -33,6 +33,6 @@ jobs:
     - name: Execute Gradle build
       run: |
         cd gen/java
-        ./gradlew publish
+        ./gradlew build -DrootProjectName=${{ matrix.modules.module }} -Pversion=${{ matrix.modules.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
