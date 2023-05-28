@@ -74,6 +74,12 @@ jobs:
       - run: |
           buf generate ${{ matrix.modules.module }}/proto
           echo ${{ matrix.modules.version }}
+      - name: Archive generated code
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-code
+          path: gen/
+
 
 
 
