@@ -58,10 +58,13 @@ jobs:
   example_matrix:
     runs-on: ubuntu-latest
     needs: get-versions
+    strategy:
+      matrix:
+        version: '["weather"]'
     steps:
       - name:
         run: |
-          echo "${{ fromJSON(needs.get-versions.outputs.CHANGED_MODULES) }}"
+          echo ${{ matrix.version }}
 
 
 
