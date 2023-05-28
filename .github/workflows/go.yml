@@ -1,0 +1,11 @@
+name: Java
+
+on:
+  workflow_call:
+
+jobs:
+  build-java:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo test

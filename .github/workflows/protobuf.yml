@@ -80,9 +80,12 @@ jobs:
           name: generated-code-${{ matrix.modules.module }}
           path: gen/
 
-  push-code:
+  push-code-java:
     needs: example_matrix
     uses: ./.github/workflows/java.yml
+  push-code-go:
+    needs: example_matrix
+    uses: ./.github/workflows/go.yml
 
 
 
