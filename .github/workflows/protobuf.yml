@@ -63,20 +63,21 @@ jobs:
   example_matrix:
     runs-on: ubuntu-latest
     needs: get-versions
-    strategy:
-      matrix:
-        modules: ${{ fromJSON(needs.get-versions.outputs.modules) }}
+#    strategy:
+#      matrix:
+#        modules: ${{ fromJSON(needs.get-versions.outputs.modules) }}
     steps:
-      # Run `git checkout`
-      - uses: actions/checkout@v3
-      # Install the `buf` CLI
-      - uses: bufbuild/buf-setup-action@v1.19.0
-      # Ensure that `buf` is installed
-      - run: |
-          buf generate ${{ matrix.modules.module }}/proto
+#      # Run `git checkout`
+#      - uses: actions/checkout@v3
+#      # Install the `buf` CLI
+#      - uses: bufbuild/buf-setup-action@v1.19.0
+#      # Ensure that `buf` is installed
+#      - run: |
+#          buf generate ${{ matrix.modules.module }}/proto
       - name: print
         run: |
-          echo ${{ matrix.modules.module.version }}
+#          echo ${{ matrix.modules.module.version }}
+          echo ${{ needs.get-versions.outputs.modules }}
           echo ${{ fromJSON(needs.get-versions.outputs.modules) }}
 
 
