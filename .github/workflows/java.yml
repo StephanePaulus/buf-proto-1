@@ -31,8 +31,8 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Execute Gradle build
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd gen/java
         ./gradlew publish -DrootProjectName=${{ matrix.modules.module }} -Pversion=${{ matrix.modules.version }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
