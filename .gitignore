@@ -1,0 +1,6 @@
+/.idea/
+/gen/java/src/
+/gen/java/build/
+/gen/java/.gradle/
+/gen/go/weather/
+/.gradle/

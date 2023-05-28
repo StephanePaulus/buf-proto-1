@@ -1,0 +1,24 @@
+version: v1
+managed:
+  enabled: true
+  # Go
+  go_package_prefix:
+    default: github.com/base/weather/v1
+  # Java
+  java_multiple_files: true
+  java_package_prefix: com
+  java_string_check_utf8: false
+plugins:
+  - plugin: buf.build/protocolbuffers/go
+    out: gen/go
+    opt: paths=source_relative
+  - plugin: buf.build/grpc/go
+    # Make sure to generate your grpc-go code to the same
+    # directory as protoc-gen-go
+    out: gen/go
+    # You almost always want to set this option with protoc-gen-go-grpc
+    opt: paths=source_relative
+  - plugin: buf.build/protocolbuffers/java
+    out: gen/java/src/main/java
+  - plugin: buf.build/grpc/java
+    out: gen/java/src/main/java

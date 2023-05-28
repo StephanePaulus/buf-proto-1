@@ -1,0 +1,36 @@
+plugins{
+    id 'base'
+    id 'pl.allegro.tech.build.axion-release' version "1.14.2" apply false
+}
+
+subprojects { Project subproject ->
+
+    apply plugin: 'pl.allegro.tech.build.axion-release'
+
+    scmVersion {
+        tag {
+            prefix.set(subproject.name)
+            versionCreator 'versionWithBranch'
+        }
+        repository {
+            pushTagsOnly = true
+        }
+        checks {
+            uncommittedChanges = false
+            aheadOfRemote = false
+            snapshotDependencies = false
+        }
+    }
+    project.version = scmVersion.version
+}
+
+task printVersions(){
+    def changedModules = []
+    for(Project p: rootProject.subprojects){
+        println p.name.toUpperCase()+'_PROTO_VERSION='+p.version
+        if(p.version.contains('SNAPSHOT')){
+            changedModules.add("\""+p.name+"\"")
+        }
+        println "CHANGED_MODULES=["+changedModules.join(",")+"]"
+    }
+}
