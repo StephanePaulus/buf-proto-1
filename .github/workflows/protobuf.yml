@@ -66,9 +66,14 @@ jobs:
       matrix:
         modules: ${{ fromJSON(needs.get-versions.outputs.test) }}
     steps:
-      - name: print
-        run: |
-          echo ${{ matrix.modules.module }}
+      # Run `git checkout`
+      - uses: actions/checkout@v3
+      # Install the `buf` CLI
+      - uses: bufbuild/buf-setup-action@v1.19.0
+      # Ensure that `buf` is installed
+      - run: |
+          buf generate ${{ matrix.modules.module }}/proto
+          echo ${{ matrix.modules.version }}
 
 
 
