@@ -50,7 +50,7 @@ jobs:
 
       - name: Execute Gradle build
         id: versions
-        run: echo $(./gradlew printVersions -q) >> "$GITHUB_OUTPUT"
+        run: echo -e "$(./gradlew printVersions -q)" >> "$GITHUB_OUTPUT"
       - name: Use the value
         id: step_two
         run: |
