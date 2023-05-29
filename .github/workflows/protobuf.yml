@@ -49,7 +49,7 @@ jobs:
 
       - name: Execute Gradle build
         id: versions
-        run: echo modules=$(./gradlew printVersions -q -Prelease.overriddenBranhName=${{ github.head_ref }}) >> "$GITHUB_OUTPUT"
+        run: echo modules=$(./gradlew printVersions -q -Prelease.overriddenBranchName=${{ github.head_ref }}) >> "$GITHUB_OUTPUT"
       - name: Use the value
         id: step_two
         run: |
