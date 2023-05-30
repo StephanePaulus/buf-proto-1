@@ -7,6 +7,9 @@ on:
         description: 'modules and versions to use'
         type: string
         required: true
+    secrets:
+      PUSH_SECRET:
+        required: true
 
 jobs:
   build-java:
@@ -29,6 +32,7 @@ jobs:
           path: "${{ github.workspace }}/generated-repo"
           ref: main
           fetch-depth: 0
+          token: ${{ secrets.PUSH_SECRET }}
 
       - name: Set git config
         working-directory: ${{ github.workspace }}/generated-repo
@@ -40,7 +44,7 @@ jobs:
         id: commit-to-gitops-repo
         working-directory: ${{ github.workspace }}/generated-repo
         run: |
-          mv ../go .
+          mv ../go/* .
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
