@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
-          path: "${{ github.workspace }}/gen/go"
+          path: "${{ github.workspace }}/generated-repo"
           ref: main
           fetch-depth: 0
 
@@ -37,6 +37,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           ls -la
+          ls -la gen
+          ls -la gen/go
 
       - name: Set git config
         working-directory: ${{ github.workspace }}/gen/go
@@ -47,13 +49,12 @@ jobs:
 
       - name: Push generated go code
         id: commit-to-gitops-repo
-        working-directory: ${{ github.workspace }}/gen/go
+        working-directory: ${{ github.workspace }}/generated-repo
         run: |
-          ls -la
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
           
-          git add .
+          git add ${{ github.workspace }}/gen/go
           git commit -m "$COMMIT_MESSAGE"
           git push
