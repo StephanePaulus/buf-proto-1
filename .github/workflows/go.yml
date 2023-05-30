@@ -18,18 +18,15 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
-
       - uses: actions/download-artifact@v3
         with:
           name: generated-code-${{ matrix.modules.module }}
-          path: gen
 
       - name: Pull module repository
         uses: actions/checkout@v3
         with:
           repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
-          path: "${{ github.workspace }}/generated-repo"
+          path: "${{ github.workspace }}/go"
           ref: main
           fetch-depth: 0
 
@@ -37,11 +34,10 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           ls -la
-          ls -la gen
-          ls -la gen/go
+          ls -la go
 
       - name: Set git config
-        working-directory: ${{ github.workspace }}/gen/go
+        working-directory: ${{ github.workspace }}/go
         run: |
           ls -la
           git config user.name stephane
@@ -49,12 +45,12 @@ jobs:
 
       - name: Push generated go code
         id: commit-to-gitops-repo
-        working-directory: ${{ github.workspace }}/generated-repo
+        working-directory: ${{ github.workspace }}/go
         run: |
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
           
-          git add ${{ github.workspace }}/gen/go
+          git add ${{ github.workspace }}/go
           git commit -m "$COMMIT_MESSAGE"
           git push
