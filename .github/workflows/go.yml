@@ -23,7 +23,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: generated-code-${{ matrix.modules.module }}
-        working-directory: "${{ github.workspace }}/gen"
+          path: gen
 
       - name: Pull module repository
         uses: actions/checkout@v3
