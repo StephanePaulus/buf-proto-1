@@ -32,9 +32,15 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Test
+        working-directory: ${{ github.workspace }}
+        run: |
+          ls -la
+
       - name: Set git config
         working-directory: ${{ github.workspace }}/gen/go
         run: |
+          ls -la
           git config user.name stephane
           git config user.email stephane.paulus@gmail.com
 
@@ -42,6 +48,7 @@ jobs:
         id: commit-to-gitops-repo
         working-directory: ${{ github.workspace }}/gen/go
         run: |
+          ls -la
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
