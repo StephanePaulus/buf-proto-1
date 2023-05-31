@@ -85,7 +85,7 @@ jobs:
       - name: Pull module repository
         uses: actions/checkout@v3
         with:
-          repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
+          repository: "StephanePaulus/go-${{ needs.example_matrix.outputs.module }}-library"
           path: "${{ github.workspace }}/generated-repo"
           ref: main
           fetch-depth: 0
