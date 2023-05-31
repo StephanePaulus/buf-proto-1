@@ -30,7 +30,7 @@ jobs:
         with:
           repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
           path: "${{ github.workspace }}/generated-repo"
-          ref: ${{ github.head_ref }}
+          ref: main
           fetch-depth: 0
           token: ${{ secrets.PUSH_SECRET }}
 
@@ -49,7 +49,7 @@ jobs:
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
-          
+          git checkout -b ${{ github.head_ref }}
           git add .
           git commit -m "$COMMIT_MESSAGE" --allow-empty
           git push
