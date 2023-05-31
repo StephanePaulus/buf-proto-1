@@ -30,7 +30,7 @@ jobs:
         id: split
         with:
           separator: '-'
-          msg: ${{ GITHUB_REF }}
+          msg: ${{ github.head_ref }}
       # Install the `buf` CLI
       - uses: bufbuild/buf-setup-action@v1.19.0
       # Ensure that `buf` is installed
