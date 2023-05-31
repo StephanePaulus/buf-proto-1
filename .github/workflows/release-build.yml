@@ -112,3 +112,4 @@ jobs:
           git commit -m "$COMMIT_MESSAGE" --allow-empty
           git tag v${{ needs.example_matrix.outputs.version }}
           git push
+          git push --tags
