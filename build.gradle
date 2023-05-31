@@ -10,11 +10,6 @@ subprojects { Project subproject ->
     scmVersion {
         tag {
             prefix.set(subproject.name)
-            branchVersionCreator.putAll( [
-                    'main': 'simple',
-                    '.*': 'versionWithBranch',
-
-            ])
         }
         repository {
             pushTagsOnly = true
