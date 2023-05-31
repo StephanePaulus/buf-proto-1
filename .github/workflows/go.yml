@@ -34,6 +34,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.PUSH_SECRET }}
 
+
       - name: Set git config
         working-directory: ${{ github.workspace }}/generated-repo
         run: |
@@ -44,7 +45,7 @@ jobs:
         id: commit-to-gitops-repo
         working-directory: ${{ github.workspace }}/generated-repo
         run: |
-          git checkout -b ${{ github.head_ref }}
+          git checkout -B ${{ github.head_ref }}
           rm -rf ${{ matrix.modules.module }}
           mv ../go/* .
           COMMIT_MESSAGE="Update generated code"
@@ -53,4 +54,4 @@ jobs:
           
           git add .
           git commit -m "$COMMIT_MESSAGE" --allow-empty
-          git push --set-upstream origin ${{ github.head_ref }}
+          git push
