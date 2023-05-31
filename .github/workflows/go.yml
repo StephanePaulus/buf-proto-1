@@ -12,7 +12,7 @@ on:
         required: true
 
 jobs:
-  build-java:
+  build-go:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
