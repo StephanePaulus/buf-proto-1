@@ -53,4 +53,4 @@ jobs:
           
           git add .
           git commit -m "$COMMIT_MESSAGE" --allow-empty
-          git push
+          git push --set-upstream origin ${{ github.head_ref }}
