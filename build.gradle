@@ -8,8 +8,10 @@ subprojects { Project subproject ->
     apply plugin: 'pl.allegro.tech.build.axion-release'
 
     scmVersion {
+        versionCreator('versionWithBranch')
         tag {
             prefix.set(subproject.name)
+            versionSeparator.set("-")
         }
         repository {
             pushTagsOnly = true
