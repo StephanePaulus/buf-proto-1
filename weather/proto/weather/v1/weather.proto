@@ -35,6 +35,10 @@ message ExpectedWeatherRequest {
   google.protobuf.Timestamp time = 2;
 }
 
+message Test{
+  int32 testNumber = 1;
+}
+
 service WeatherVisionService {
   rpc CurrentWeather (CurrentWeatherRequest) returns (CurrentWeatherResponse);
   rpc ExpectedWeather (ExpectedWeatherRequest) returns (ExpectedWeatherResponse);
