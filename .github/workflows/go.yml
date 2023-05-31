@@ -30,7 +30,7 @@ jobs:
         with:
           repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
           path: "${{ github.workspace }}/generated-repo"
-          ref: main
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
           token: ${{ secrets.PUSH_SECRET }}
 
