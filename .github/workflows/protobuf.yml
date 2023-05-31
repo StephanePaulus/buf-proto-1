@@ -70,12 +70,18 @@ jobs:
       # Ensure that `buf` is installed
       - run: |
           buf generate ${{ matrix.modules.module }}/proto
-          echo ${{ matrix.modules.version }}
       - name: Archive generated code
         uses: actions/upload-artifact@v3
         with:
           name: generated-code-${{ matrix.modules.module }}
           path: gen/
+      - run: |
+          buf build ${{ matrix.modules.module }}/proto --as-file-descriptor-set -o ${{ matrix.modules.module }}.pb
+      - name: Archive descriptor
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.modules.module }}-descriptor
+          path: ${{ matrix.modules.module }}.pb
 
   push-code-java:
     needs: [get-versions,example_matrix]
