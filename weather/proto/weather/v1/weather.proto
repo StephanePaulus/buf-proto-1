@@ -36,7 +36,7 @@ message ExpectedWeatherRequest {
 }
 
 message Test{
-  int32 testNumber = 1;
+  int32 test_number = 1;
 }
 
 service WeatherVisionService {
