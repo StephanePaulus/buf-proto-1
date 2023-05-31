@@ -1,6 +1,6 @@
 plugins{
     id 'base'
-    id 'pl.allegro.tech.build.axion-release' version "1.14.2" apply false
+    id 'pl.allegro.tech.build.axion-release' version "1.15.3" apply false
 }
 
 subprojects { Project subproject ->
@@ -10,7 +10,11 @@ subprojects { Project subproject ->
     scmVersion {
         tag {
             prefix.set(subproject.name)
-            versionCreator 'versionWithBranch'
+            branchVersionCreator.putAll( [
+                    'main': 'simple',
+                    '.*': 'versionWithBranch',
+
+            ])
         }
         repository {
             pushTagsOnly = true
@@ -24,13 +28,12 @@ subprojects { Project subproject ->
     project.version = scmVersion.version
 }
 
-task printVersions(){
+tasks.register('printVersions') {
     def changedModules = []
-    for(Project p: rootProject.subprojects){
-        println p.name.toUpperCase()+'_PROTO_VERSION='+p.version
-        if(p.version.contains('SNAPSHOT')){
-            changedModules.add("\""+p.name+"\"")
+    for (Project p : rootProject.subprojects) {
+        if (p.version.contains('SNAPSHOT')) {
+            changedModules.add("{\"module\": \""+p.name+"\", \"version\": \""+p.version+"\"}")
         }
-        println "CHANGED_MODULES=["+changedModules.join(",")+"]"
     }
+    println "[ "+changedModules.join(", ")+" ]"
 }

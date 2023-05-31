@@ -1,0 +1,41 @@
+name: Java
+
+on:
+  workflow_call:
+    inputs:
+      modules:
+        description: 'modules and versions to use'
+        type: string
+        required: true
+
+jobs:
+  build-java:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        modules: ${{ fromJSON(inputs.modules) }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/download-artifact@v3
+      with:
+        name: generated-code-${{ matrix.modules.module }}
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Execute Gradle build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd gen/java
+        ./gradlew publish -DrootProjectName=${{ matrix.modules.module }} -Pversion=${{ matrix.modules.version }}

@@ -1,0 +1,55 @@
+name: Java
+
+on:
+  workflow_call:
+    inputs:
+      modules:
+        description: 'modules and versions to use'
+        type: string
+        required: true
+    secrets:
+      PUSH_SECRET:
+        required: true
+
+jobs:
+  build-java:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        modules: ${{ fromJSON(inputs.modules) }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: generated-code-${{ matrix.modules.module }}
+
+      - name: Pull module repository
+        uses: actions/checkout@v3
+        with:
+          repository: "StephanePaulus/go-${{ matrix.modules.module }}-library"
+          path: "${{ github.workspace }}/generated-repo"
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.PUSH_SECRET }}
+
+      - name: Set git config
+        working-directory: ${{ github.workspace }}/generated-repo
+        run: |
+          git config user.name stephane
+          git config user.email stephane.paulus@gmail.com
+
+      - name: Push generated go code
+        id: commit-to-gitops-repo
+        working-directory: ${{ github.workspace }}/generated-repo
+        run: |
+          rm -rf ${{ matrix.modules.module }}
+          mv ../go/* .
+          COMMIT_MESSAGE="Update generated code"
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
+          
+          git add .
+          git commit -m "$COMMIT_MESSAGE" --allow-empty
+          git push
