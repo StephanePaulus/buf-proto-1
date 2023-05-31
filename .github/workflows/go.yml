@@ -44,6 +44,7 @@ jobs:
         id: commit-to-gitops-repo
         working-directory: ${{ github.workspace }}/generated-repo
         run: |
+          rm -rf ${{ matrix.modules.module }}
           mv ../go/* .
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
