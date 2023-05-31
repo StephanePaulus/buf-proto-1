@@ -44,12 +44,13 @@ jobs:
         id: commit-to-gitops-repo
         working-directory: ${{ github.workspace }}/generated-repo
         run: |
+          git checkout -b ${{ github.head_ref }}
           rm -rf ${{ matrix.modules.module }}
           mv ../go/* .
           COMMIT_MESSAGE="Update generated code"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE"
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
-          git checkout -b ${{ github.head_ref }}
+          
           git add .
           git commit -m "$COMMIT_MESSAGE" --allow-empty
           git push
