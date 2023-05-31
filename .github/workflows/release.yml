@@ -12,9 +12,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
-  packages: write
-  actions: write
+  permissions: read-all|write-all
 
 jobs:
   release:
